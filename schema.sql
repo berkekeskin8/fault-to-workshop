@@ -17,7 +17,7 @@ CREATE TABLE vehicle (
 );
 
 CREATE TABLE workshop (
-    tax_id       TEXT PRIMARY KEY,
+    workshop_id  INTEGER PRIMARY KEY,
     name         TEXT NOT NULL,
     phone_number TEXT,
     address      TEXT,
@@ -35,7 +35,7 @@ CREATE TABLE fault_code (
 CREATE TABLE service_record (
     record_id       INTEGER PRIMARY KEY,
     plate           TEXT NOT NULL REFERENCES vehicle(plate),
-    workshop_tax_id TEXT NOT NULL REFERENCES workshop(tax_id),
+    workshop_id INTEGER NOT NULL REFERENCES workshop(workshop_id),
     date            TEXT NOT NULL,
     km              INTEGER NOT NULL,
     description     TEXT,
@@ -52,15 +52,15 @@ CREATE TABLE fuel_record (
 );
 
 CREATE TABLE serves_brand (
-    workshop_tax_id TEXT NOT NULL REFERENCES workshop(tax_id),
+    workshop_id INTEGER NOT NULL REFERENCES workshop(workshop_id),
     brand_name      TEXT NOT NULL REFERENCES brand(name),
-    PRIMARY KEY (workshop_tax_id, brand_name)
+    PRIMARY KEY (workshop_id, brand_name)
 );
 
 CREATE TABLE has_specialty (
-    workshop_tax_id TEXT NOT NULL REFERENCES workshop(tax_id),
+    workshop_id INTEGER NOT NULL REFERENCES workshop(workshop_id),
     specialty_name  TEXT NOT NULL REFERENCES specialty(name),
-    PRIMARY KEY (workshop_tax_id, specialty_name)
+    PRIMARY KEY (workshop_id, specialty_name)
 );
 
 CREATE TABLE fixed (
